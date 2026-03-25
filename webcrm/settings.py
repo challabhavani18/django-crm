@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'j1c=6$s-dh#$ywt@(q4cm=j&0c*!0x!e-qm6k1%yoliec(15tn'
 
 # Add your hosts to the list.
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Database
 DATABASES = {
@@ -37,7 +37,7 @@ DATABASES = {
         # "ENGINE": "django.db.backends.postgresql",
         # 'PORT': '5432',
 
-        'NAME': 'crm_db',
+        'NAME': BASE_DIR / 'db.sqlite3',
         'USER': 'crm_user',
         'PASSWORD': 'crmpass',
         'HOST': 'localhost',
@@ -57,7 +57,7 @@ DEFAULT_FROM_EMAIL = 'test@example.com'
 ADMINS = [("<Admin1>", "<admin1_box@example.com>")]   # specify admin
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 FORMS_URLFIELD_ASSUME_HTTPS = True
 
