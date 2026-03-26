@@ -20,11 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # from django.core.management.utils import get_random_secret_key
 # print(get_random_secret_key())
 SECRET_KEY = os.environ.get('SECRET_KEY', 'default-key')
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
+# DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'django-crm-3-la20.onrender.com').split(',')
 
 # Add your hosts to the list.
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['django-crm-3-la20.onrender.com']
 
 # Database
 DATABASES = {
@@ -60,7 +60,7 @@ DEFAULT_FROM_EMAIL = 'test@example.com'
 ADMINS = [("<Admin1>", "<admin1_box@example.com>")]   # specify admin
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 FORMS_URLFIELD_ASSUME_HTTPS = True
 
@@ -106,6 +106,7 @@ LOGIN_URL = '/admin/login/'
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.sites',
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,6 +127,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -176,9 +178,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_FINDERS = [
@@ -325,3 +325,5 @@ if TESTING:
     SECURE_SSL_REDIRECT = False
     LANGUAGE_CODE = 'en'
     LANGUAGES = [('en', ''), ('uk', '')]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
