@@ -60,7 +60,7 @@ DEFAULT_FROM_EMAIL = 'test@example.com'
 ADMINS = [("<Admin1>", "<admin1_box@example.com>")]   # specify admin
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 FORMS_URLFIELD_ASSUME_HTTPS = True
 
@@ -174,8 +174,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -199,9 +208,9 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # For more security, replace the url prefixes
 # with your own unique value.
-SECRET_CRM_PREFIX = '123/'
-SECRET_ADMIN_PREFIX = '456-admin/'
-SECRET_LOGIN_PREFIX = '789-login/'
+SECRET_CRM_PREFIX = ''
+SECRET_ADMIN_PREFIX = 'admin/'
+SECRET_LOGIN_PREFIX = 'login/'
 
 # Specify ip of host to avoid importing emails sent by CRM
 CRM_IP = "127.0.0.1"
