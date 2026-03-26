@@ -24,7 +24,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'default-key')
 # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'django-crm-3-la20.onrender.com').split(',')
 
 # Add your hosts to the list.
-ALLOWED_HOSTS = ['django-crm-3-la20.onrender.com']
+ALLOWED_HOSTS = [
+    "django-crm-3-a0qg.onrender.com"
+]
+CSRF_TRUSTED_ORIGINS = [
+    "https://django-crm-3-a0qg.onrender.com"
+]
 
 # Database
 DATABASES = {
