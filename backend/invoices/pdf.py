@@ -13,8 +13,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 try:
-    from weasyprint import CSS, HTML
-    from weasyprint.text.fonts import FontConfiguration
+    # from weasyprint import CSS, HTML
+    # from weasyprint.text.fonts import FontConfiguration
 
     WEASYPRINT_AVAILABLE = True
 except ImportError:

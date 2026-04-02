@@ -1,4 +1,5 @@
 from django.urls import path
+from .views.dashboard_views import ApiHomeView
 
 from common.views.auth_views import (
     GoogleIdTokenView,
@@ -32,7 +33,10 @@ app_name = "api_common"
 
 
 urlpatterns = [
-    path("dashboard/", ApiHomeView.as_view()),
+    path('dashboard/', ApiHomeView.as_view(), name='dashboard'),
+     # other URLs...
+    path("activities/", ActivityListView.as_view(), name="activities"),
+    # path("dashboard/", ApiHomeView.as_view()),
     # JWT Authentication endpoints for SvelteKit integration
     path(
         "auth/refresh-token/",

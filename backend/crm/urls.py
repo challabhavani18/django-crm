@@ -1,9 +1,13 @@
+from django.urls import path
+from common.views.dashboard_views import ApiHomeView
 from django.conf import settings
 from django.contrib import admin
+from django.urls import path, include
 from django.contrib.auth import views
 from django.urls import include, path
 from django.urls import re_path as url
 from django.views.generic import TemplateView
+from django.http import HttpResponse 
 from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularRedocView,
@@ -13,30 +17,31 @@ from drf_spectacular.views import (
 app_name = "crm"
 
 urlpatterns = [
-    url(
-        r"^healthz/$",
+    path('', lambda request: HttpResponse("Welcome to CRM Project")),
+
+    path(
+        r"healthz/",
         TemplateView.as_view(template_name="healthz.html"),
         name="healthz",
     ),
+
+    # ✅ ONLY THIS API INCLUDE
     path("api/", include("common.app_urls", namespace="common_urls")),
-    # Public portal endpoints (no auth required)
+     path("dashboard/", ApiHomeView.as_view(), name="dashboard"),
+
+    # Public APIs
     path("api/public/", include("invoices.public_urls", namespace="public_invoices")),
+
     path(
         "logout/", views.LogoutView.as_view(), {"next_page": "/login/"}, name="logout"
     ),
+
     path("admin/", admin.site.urls),
+
+    # Swagger
     path("schema/", SpectacularAPIView.as_view(), name="schema"),
-    # Optional UI:
-    path(
-        "swagger-ui/",
-        SpectacularSwaggerView.as_view(url_name="schema"),
-        name="swagger-ui",
-    ),
-    path(
-        "api/schema/redoc/",
-        SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc",
-    ),
+    path("swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema")),
+    path("api/schema/redoc/", SpectacularRedocView.as_view(url_name="schema")),
 ]
 
 
