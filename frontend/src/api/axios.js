@@ -1,11 +1,9 @@
-import axios from "axios";
-
-const HttpClient = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+const api = axios.create({
+  baseURL: "http://127.0.0.1:8000/api/",
 });
 
-// 🔥 ADD THIS INTERCEPTOR
-HttpClient.interceptors.request.use((config) => {
+// attach token automatically
+api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   const orgId = localStorage.getItem("org_id");
 
@@ -20,4 +18,4 @@ HttpClient.interceptors.request.use((config) => {
   return config;
 });
 
-export default HttpClient;
+export default api;

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from .models import Profile
 
 from common.models import Address, Comment, CommentFiles, SessionToken, User
 
@@ -9,7 +10,11 @@ admin.site.register(Address)
 admin.site.register(Comment)
 admin.site.register(CommentFiles)
 
-
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'org', 'role', 'is_organization_admin', 'is_active']
+    list_filter = ['org', 'role', 'is_active']
+    search_fields = ['user__email', 'org__name']
 @admin.register(SessionToken)
 class SessionTokenAdmin(admin.ModelAdmin):
     list_display = (

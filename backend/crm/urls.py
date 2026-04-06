@@ -1,9 +1,10 @@
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from common.views.dashboard_views import ApiHomeView
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth import views
+# from django.contrib.auth import views
 from django.urls import include, path
 from django.urls import re_path as url
 from django.views.generic import TemplateView
@@ -19,6 +20,11 @@ app_name = "crm"
 urlpatterns = [
     path('', lambda request: HttpResponse("Welcome to CRM Project")),
 
+    path('dashboard/', ApiHomeView.as_view()),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
     path(
         r"healthz/",
         TemplateView.as_view(template_name="healthz.html"),
@@ -32,9 +38,9 @@ urlpatterns = [
     # Public APIs
     path("api/public/", include("invoices.public_urls", namespace="public_invoices")),
 
-    path(
-        "logout/", views.LogoutView.as_view(), {"next_page": "/login/"}, name="logout"
-    ),
+    # path(
+    #     "logout/", views.LogoutView.as_view(), {"next_page": "/login/"}, name="logout"
+    # ),
 
     path("admin/", admin.site.urls),
 

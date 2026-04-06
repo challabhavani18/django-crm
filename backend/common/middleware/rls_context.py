@@ -107,6 +107,8 @@ class RequireOrgContext:
 
     # Paths that don't require org context
     EXEMPT_PATHS = [
+        "/api/token/",
+        "/api/auth/login/",
         "/api/auth/refresh-token/",
         "/api/auth/me/",
         "/api/auth/switch-org/",
